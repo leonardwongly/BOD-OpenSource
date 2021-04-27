@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AWSXRayRecorder.Handlers.AwsSdk</name>
+    </assembly>
+    <members>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.AWSSDKHandler">
+            <summary>
+            The AWS SDK handler to register X-Ray with <see cref="T:Amazon.Runtime.AmazonServiceClient"/> which can intercept downstream requests and responses.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.AWSSDKHandler.RegisterXRayForAllServices">
+            <summary>
+            Registers X-Ray for all instances of <see cref="T:Amazon.Runtime.AmazonServiceClient"/>.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.AWSSDKHandler.RegisterXRayForAllServices(System.String)">
+            <summary>
+            Registers X-Ray for all instances of <see cref="T:Amazon.Runtime.AmazonServiceClient"/> with a given custom AWS Service Manifest File.
+            </summary>
+            <param name="path"> Absolute path to the file which contains the operation parameter whitelist configuration.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.AWSSDKHandler.RegisterXRay``1">
+            <summary>
+            Registers X-Ray for the given type of <see cref="T:Amazon.Runtime.AmazonServiceClient"/>.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.AWSSDKHandler.RegisterXRayManifest(System.String)">
+            <summary>
+            Registers file path of AWS Service Manifest file. This file would be used for all the registered <see cref="T:Amazon.Runtime.AmazonServiceClient"/> instances. 
+            </summary>
+            <param name="path"> Absolute path to the file which contains the operation parameter whitelist configuration.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.AWSSDKHandler.RegisterXRayManifest(System.IO.Stream)">
+            <summary>
+            Registers AWS Service Manifest resource stream. This stream would be used for all the registered <see cref="T:Amazon.Runtime.AmazonServiceClient"/> instances. 
+            </summary>
+            <param name="stream"> stream for manifest which contains the operation parameter whitelist configuration.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationHandler">
+            <summary>
+            Handler for AWS services operation. It lists the information to be collected
+            for the operation from request and response.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationHandler.RequestParameters">
+            <summary>
+            Gets or sets the request parameters
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationHandler.ResponseParameters">
+            <summary>
+            Gets or sets the response parameters
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationHandler.RequestDescriptors">
+            <summary>
+            Gets or sets the request descriptors
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationHandler.ResponseDescriptors">
+            <summary>
+            Gets or sets the response descriptors
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationRequestDescriptor">
+            <summary>
+            Request descriptor for operation of AWS service. The difference between request descriptor
+            and parameter is descriptor represents attribute with Dictionary type, and only keys of the
+            dictionary are collected. 
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationRequestDescriptor.RenameTo">
+            <summary>
+            Gets or sets the new name of the field
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationRequestDescriptor.Map">
+            <summary>
+            Gets or sets a value indicating whether the filed is a map
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationRequestDescriptor.GetKeys">
+            <summary>
+            Gets or sets a value indicating whether the key should be get
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationRequestDescriptor.List">
+            <summary>
+            Gets or sets a value indicating whether the filed is a list
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationRequestDescriptor.GetCount">
+            <summary>
+            Gets or sets a value indicating whether the count of the list should be get
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationResponseDescriptor">
+            <summary>
+            Response descriptor for operation of AWS services. The difference between response descriptor
+            and parameter is descriptor represents attribute with <see cref="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationResponseDescriptor.List"/> type, and only the count
+            of the list get collected.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationResponseDescriptor.RenameTo">
+            <summary>
+            Gets or sets the new name for the field
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationResponseDescriptor.Map">
+            <summary>
+            Gets or sets a value indicating whether the filed is a map
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationResponseDescriptor.GetKeys">
+            <summary>
+            Gets or sets a value indicating whether the key should be get
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationResponseDescriptor.List">
+            <summary>
+            Gets or sets a value indicating whether the filed is a list
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSOperationResponseDescriptor.GetCount">
+            <summary>
+            Gets or sets a value indicating whether the count of the list should be get
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandler">
+            <summary>
+            Handler for an AWS service. It contains a map of operation and its handler.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandler"/> class.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandler.Operations">
+            <summary>
+            Gets or sets the operations for the services
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandlerManifest">
+            <summary>
+            Manifest of AWS Service Handler.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandlerManifest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandlerManifest"/> class.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandlerManifest.Services">
+            <summary>
+            Gets or sets the map of service name to AwsServiceInfo. The key of map ignores case.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.AWSXRaySDKUtils">
+            <summary>
+            Utility class for AWS SDK handler.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler">
+            <summary>
+            The handler to register <see cref="T:Amazon.Runtime.AmazonServiceClient"/> which can intercept downstream requests and responses.
+            Note: This class should not be instantiated or used in anyway. It is used internally within SDK.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.AWSServiceHandlerManifest">
+            <summary>
+            Gets AWS service manifest of operation parameter whitelist.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler" /> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler" /> class.
+            </summary>
+            <param name="path">Path to the file which contains the operation parameter whitelist configuration.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when recorder is null.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler" /> class.
+            </summary>
+            <param name="stream"> stream for manifest which contains the operation parameter whitelist configuration.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when recorder is null.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.#ctor(Amazon.XRay.Recorder.Handlers.AwsSdk.Entities.AWSServiceHandlerManifest)">
+            <summary>
+            Creates instance of <see cref="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler"/> with provided AWS service manifest instance.
+            </summary>
+            <param name="awsServiceManifest">Instance of <see cref="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.AWSServiceHandlerManifest"/></param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.GetAWSServiceManifest(System.String)">
+            <summary>
+            Extracts <see cref="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.AWSServiceHandlerManifest"/> instance from provided path of AWS Service manifest file.
+            </summary>
+            <param name="path">Absolute path to AWS Service Manifest file</param>
+            <returns>Instance of <see cref="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.AWSServiceHandlerManifest"/></returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.GetAWSServiceManifest(System.IO.Stream)">
+            <summary>
+            Extracts <see cref="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.AWSServiceHandlerManifest"/> instance from provided aws service manifest stream.
+            </summary>
+            <param name="stream">Absolute path to AWS Service Manifest file</param>
+            <returns>Instance of <see cref="P:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.AWSServiceHandlerManifest"/></returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.RemoveAmazonPrefixFromServiceName(System.String)">
+            <summary>
+            Removes amazon prefix from service name. There are two type of service name.
+                Amazon.DynamoDbV2
+                AmazonS3
+            </summary>
+            <param name="serviceName">Name of the service.</param>
+            <returns>String after removing Amazon prefix.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.ProcessBeginRequest(Amazon.Runtime.IExecutionContext)">
+            <summary>
+            Processes Begin request by starting subsegment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.ProcessEndRequest(Amazon.Runtime.IExecutionContext)">
+            <summary>
+            Processes End request by ending subsegment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.InvokeSync(Amazon.Runtime.IExecutionContext)">
+            <summary>
+            Process Synchronous <see cref="T:Amazon.Runtime.AmazonServiceClient"/> operations. A subsegment is started at the beginning of 
+            the request and ended at the end of the request.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineHandler.InvokeAsync``1(Amazon.Runtime.IExecutionContext)">
+            <summary>
+            Process Asynchronous <see cref="T:Amazon.Runtime.AmazonServiceClient"/> operations. A subsegment is started at the beginning of 
+            the request and ended at the end of the request.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineCustomizer">
+            <summary>
+            Pipeline Customizer for registering <see cref="T:Amazon.Runtime.AmazonServiceClient"/> instances with AWS X-Ray.
+            Note: This class should not be instantiated or used in anyway. It is used internally within SDK.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Handlers.AwsSdk.Internal.XRayPipelineCustomizer.AddType(System.Type)">
+            <summary>
+            Adds type to the list of <see cref="T:System.Type" />.
+            </summary>
+            <param name="type"> Type of <see cref="T:Amazon.Runtime.AmazonServiceClient"/> to be registered with X-Ray.</param>
+        </member>
+    </members>
+</doc>

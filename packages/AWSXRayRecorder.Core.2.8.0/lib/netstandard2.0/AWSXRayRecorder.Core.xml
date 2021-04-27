@@ -1,0 +1,3148 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AWSXRayRecorder.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder">
+            <summary>
+            A collection of methods used to record tracing information for AWS X-Ray.
+            </summary>
+            <seealso cref="T:Amazon.XRay.Recorder.Core.IAWSXRayRecorder" />
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder" /> class.
+            with default configuration.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.#ctor(Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder" /> class with <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorder.XRayOptions"/>
+            </summary>
+            <param name="options">Instance of <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorder.XRayOptions"/>.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.InitializeInstance(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder" /> class
+            with given instance of <see cref="T:Microsoft.Extensions.Configuration.IConfiguration" />.
+            </summary>
+            <param name="configuration">Instance of <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.InitializeInstance(Microsoft.Extensions.Configuration.IConfiguration,Amazon.XRay.Recorder.Core.AWSXRayRecorder)">
+            <summary>
+            Initializes provided instance of the <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder" /> class with 
+            the instance of <see cref="T:Microsoft.Extensions.Configuration.IConfiguration" />.
+            </summary>
+            <param name="configuration">Instance of <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.</param>
+            <param name="recorder">Instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/>.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.#ctor(Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder" /> class
+            with given instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter" />.
+            </summary>
+            <param name="emitter">Segment emitter</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.#ctor(Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter,Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder" /> class
+            with given instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter" /> and instance of <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorder.XRayOptions"/>.
+            </summary>
+            <param name="emitter">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter"/>.</param>
+            <param name="options">Instance of <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorder.XRayOptions"/>.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorder.Instance">
+            <summary>
+            Gets the singleton instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> with default configuration.
+            </summary>
+            <returns>An instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> class.</returns>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorder.XRayOptions">
+            <summary>
+            Instance of <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorder.XRayOptions"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.BeginSubsegment(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Begin a tracing subsegment. A new segment will be created and added as a subsegment to previous segment/subsegment.
+            </summary>
+            <param name="name">Name of the operation</param>
+            <param name="timestamp">Sets the start time of the subsegment</param>
+            <exception cref="T:System.ArgumentNullException">The argument has a null value.</exception>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.ProcessSubsegmentInLambdaContext(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Begin a tracing subsegment. A new subsegment will be created and added as a subsegment to previous facade segment or subsegment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.AddFacadeSegment(System.String)">
+            <summary>
+            Begin a Facade Segment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.EndSubsegment(System.Nullable{System.DateTime})">
+            <summary>
+            End a subsegment.
+            </summary>
+            <param name="timestamp">Sets the end time for the subsegment</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.IsLambda">
+            <summary>
+            Checks whether current execution is in AWS Lambda.
+            </summary>
+            <returns>Returns true if current execution is in AWS Lambda.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.GetTraceVariablesFromEnvironment">
+            <summary>
+            Returns value set for environment variable "_X_AMZN_TRACE_ID"
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.IsTracingDisabled">
+            <summary>
+            Checks whether Tracing is enabled or disabled.
+            </summary>
+            <returns> Returns true if Tracing is disabled else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorder.RegisterLogger(Amazon.LoggingOptions)">
+            <summary>
+             Configures Logger to <see cref="T:Amazon.LoggingOptions"/>.
+            </summary>
+            <param name="loggingOptions">Enum of <see cref="T:Amazon.LoggingOptions"/>.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder">
+            <summary>
+            This class provides utilities to build an instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> with different configurations.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.Plugins">
+            <summary>
+            Gets a read-only copy of current plugins in the builder
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithPluginsFromConfig(Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions)">
+            <summary>
+            Builds <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder"/> instance with xrayoptions.
+            </summary>
+            <param name="xRayOptions">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions"/></param>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder"/>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithContextMissingStrategyFromConfig(Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions)">
+            <summary>
+            Reads useRuntimeErrors settings from config instance, and adds into the builder.
+            If the useRuntimeErrors settings doesn't exist, it defaults to true and ContextMissingStrategy.RUNTIME_ERROR is used.
+            </summary>
+            <returns>The builder with context missing strategy set.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.Build(Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions)">
+            <summary>
+            Build a instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> with <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions"/> class.
+            <param name="xRayOptions">An instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions"/> class.</param>
+            </summary>
+            <returns>A new instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> class.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.Build(Amazon.XRay.Recorder.Core.AWSXRayRecorder)">
+            <summary>
+            Configures a instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> with existing configuration added to the builder.
+            </summary>
+            <param name="recorder">An instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/>.</param>
+            <returns>A new instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithPlugin(Amazon.XRay.Recorder.Core.Plugins.IPlugin)">
+            <summary>
+            Adds the given plugin to builder
+            </summary>
+            <param name="plugin">A specific plugin to add.</param>
+            <returns>The builder with plugin added.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithDaemonAddress(System.String)">
+            <summary>
+            Adds the given plugin to builder
+            </summary>
+            <param name="plugin">A specific plugin to add.</param>
+            <returns>The builder with plugin added.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithSamplingStrategy(Amazon.XRay.Recorder.Core.Sampling.ISamplingStrategy)">
+            <summary>
+            Adds the given sampling strategy to builder. There can exist only one sampling strategy.
+            Any previous value of sampling strategy will be overwritten.
+            </summary>
+            <param name="newStrategy">A sampling strategy to add</param>
+            <returns>The builder with sampling strategy added.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithStreamingStrategy(Amazon.XRay.Recorder.Core.Strategies.IStreamingStrategy)">
+            <summary>
+            Adds the given streaming strategy to builder. There can exist only one streaming strategy.
+            Any previous value of streaming strategy will be overwritten.
+            </summary>
+            <param name="newStreamingStrategy">A streaming strategy to add</param>
+            <returns>The builder with streaming strategy added</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithContextMissingStrategy(Amazon.XRay.Recorder.Core.Strategies.ContextMissingStrategy)">
+            <summary>
+            Adds the context missing strategy.
+            </summary>
+            <param name="strategy">The ContextMissingStrategy.</param>
+            <returns>The builder with context missing strategy added.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithSegmentEmitter(Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter)">
+            <summary>
+            Adds the provided <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter"/> instance.
+            </summary>
+            <param name="segmentEmitter">The provided <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter"/> instance.</param>
+            <returns>The builder with ISegmentEmitter added.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithTraceContext(Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext)">
+            <summary>
+            Configures recorder with <see cref="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext"/> instance.
+            </summary>
+            <param name="segmentEmitter">The provided <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter"/> instance.</param>
+            <returns>The builder with ISegmentEmitter added.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.WithExceptionSerializationStrategy(Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy)">
+            <summary>
+            Configures recorder with provided <see cref="T:Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy"/>. While setting number consider max trace size
+            limit : https://aws.amazon.com/xray/pricing/
+            </summary>
+            <param name="size">stack frame size</param>
+            <returns>The builder with stack frame size added.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderBuilder.Build">
+            <summary>
+            Build a instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> with existing configuration added to the builder.
+            </summary>
+            <returns>A new instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/>.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl">
+            <summary>
+            This class provides utilities to build an instance of <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> with different configurations.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.EnvironmentVariableContextMissingStrategy">
+            <summary>
+            The environment variable that setting context missing strategy.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.Origin">
+            <summary>
+            Gets or sets the origin of the service.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.SamplingStrategy">
+            <summary>
+            Gets or sets the sampling strategy.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.ContextMissingStrategy">
+            <summary>
+            Gets or sets the context missing strategy.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceContext">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext"/>, used to store segment/subsegment.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.RuntimeContext">
+            <summary>
+            Gets the runtime context which is generated by plugins.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.Emitter">
+            <summary>
+            Emitter used to send Traces.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.ExceptionSerializationStrategy">
+            <summary>
+            Defines exception serialization stategy to process recorded exceptions. <see cref="T:Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy"/>
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.StreamingStrategy">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Strategies.IStreamingStrategy"/>, used to define the streaming strategy for segment/subsegment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.BeginSegment(System.String,System.String,System.String,Amazon.XRay.Recorder.Core.Sampling.SamplingResponse,System.Nullable{System.DateTime})">
+            <summary>
+            Begin a tracing segment. A new tracing segment will be created and started.
+            </summary>
+            <param name="name">The name of the segment</param>
+            <param name="traceId">Trace id of the segment</param>
+            <param name="parentId">Unique id of the upstream remote segment or subsegment where the downstream call originated from.</param>
+            <param name="samplingResponse">Instance  of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse"/>, contains sampling decision for the segment from upstream service. If not passed, sampling decision is made based on <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.SamplingStrategy"/> set with the recorder instance.</param>
+            <param name="timestamp">If not null, sets the start time for the segment else current time is set.</param>
+            <exception cref="T:System.ArgumentNullException">The argument has a null value.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.EndSegment(System.Nullable{System.DateTime})">
+            <summary>
+            End tracing of a given segment.
+            </summary>
+            <param name="timestamp">If not null, set as endtime for the current segment.</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.BeginSubsegment(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Begin a tracing subsegment. A new segment will be created and added as a subsegment to previous segment.
+            </summary>
+            <param name="name">Name of the operation.</param>
+            <param name="timestamp">Sets the start time of the subsegment</param>
+            <exception cref="T:System.ArgumentNullException">The argument has a null value.</exception>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.EndSubsegment(System.Nullable{System.DateTime})">
+            <summary>
+            End a subsegment.
+            </summary>
+            <param name="timestamp">Sets the end time for the subsegment</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.IsTracingDisabled">
+            <summary>
+            Checks whether Tracing is enabled or disabled.
+            </summary>
+            <returns> Returns true if Tracing is disabled else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddAnnotation(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value as annotation to current segment.
+            The type of value is restricted. Only <see cref="T:System.String" />, <see cref="T:System.Int32" />, <see cref="T:System.Int64" />,
+            <see cref="T:System.Double" /> and <see cref="T:System.Boolean" /> are supported.
+            </summary>
+            <param name="key">The key of the annotation to add.</param>
+            <param name="value">The value of the annotation to add.</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.SetNamespace(System.String)">
+            <summary>
+            Set namespace to current segment.
+            </summary>
+            <param name="value">The value of the namespace.</param>
+            <exception cref="T:System.ArgumentException">Value cannot be null or empty.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.PopulateNewSegmentAttributes(Amazon.XRay.Recorder.Core.Internal.Entities.Segment)">
+            <summary>
+            Populates runtime and service contexts for the segment.
+            </summary>
+            <param name="newSegment">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Segment"/>.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.PopulateNewSegmentAttributes(Amazon.XRay.Recorder.Core.Internal.Entities.Segment,Amazon.XRay.Recorder.Core.Sampling.SamplingResponse)">
+            <summary>
+            Populates runtime and service contexts for the segment.
+            </summary>
+            <param name="newSegment">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Segment"/>.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddRuleName(Amazon.XRay.Recorder.Core.Internal.Entities.Segment,Amazon.XRay.Recorder.Core.Sampling.SamplingResponse)">
+            <summary>
+            If non null, adds given rulename to the segment..
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddHttpInformation(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value as http information to current segment.
+            </summary>
+            <param name="key">The key of the http information to add.</param>
+            <param name="value">The value of the http information to add.</param>
+            <exception cref="T:System.ArgumentException">Key is null or empty.</exception>
+            <exception cref="T:System.ArgumentNullException">Value is null.</exception>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.MarkFault">
+            <summary>
+            Mark the current segment as fault.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.MarkError">
+            <summary>
+            Mark the current segment as error.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddException(System.Exception)">
+            <summary>
+            Add the exception to current segment and also mark current segment as fault.
+            </summary>
+            <param name="ex">The exception to be added.</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.MarkThrottle">
+            <summary>
+            Mark the current segment as being throttled. And Error will also be marked for current segment.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddPrecursorId(System.String)">
+            <summary>
+            Add a precursor id.
+            </summary>
+            <param name="precursorId">The precursor id to be added.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddSqlInformation(System.String,System.String)">
+            <summary>
+            Add the specified key and value as SQL information to current segment.
+            </summary>
+            <param name="key">The key of the SQL information.</param>
+            <param name="value">The value of the http information.</param>
+            <exception cref="T:System.ArgumentException">Value or key is null or empty.</exception>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddMetadata(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value to metadata under default namespace.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.AddMetadata(System.String,System.String,System.Object)">
+            <summary>
+            Adds the specified key and value to metadata with given namespace.
+            </summary>
+            <param name="nameSpace">The namespace.</param>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.SetDaemonAddress(System.String)">
+             <summary>
+             Sets the daemon address for <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.Emitter"/> and <see cref="T:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy"/> if set.
+             A notation of '127.0.0.1:2000' or 'tcp:127.0.0.1:2000 udp:127.0.0.2:2001' or 
+            'udp:127.0.0.1:2000 tcp:127.0.0.2:2001'
+             are acceptable.The former one means UDP and TCP are running at
+             the same address.
+             If environment variable is set to specific daemon address, the call to this method
+             will be ignored.
+             </summary>
+             <param name="daemonAddress">The daemon address.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.SetTraceContext(Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext)">
+            <summary>
+            Configures recorder instance with <see cref="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext"/>.
+            </summary>
+            <param name="traceContext">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext"/></param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.Dispose">
+            <summary>
+            Free resources within the object.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.Dispose(System.Boolean)">
+            <summary>
+            Free resources within the object.
+            </summary>
+            <param name="disposing">To dispose or not.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.GetSubsegmentsToStream(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Returns subsegments.
+            </summary>
+            <param name="entity">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/></param>
+            <returns>Subsegments of instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.PopulateContexts">
+            <summary>
+            Populates runtime and service contexts.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.ProcessEndSegment(Amazon.XRay.Recorder.Core.Internal.Entities.Segment)">
+            <summary>
+            If sampled and is emittable sends segments using emitter else checks for subsegments to stream.
+            </summary>
+            <param name="segment"></param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.PrepEndSegment(Amazon.XRay.Recorder.Core.Internal.Entities.Segment)">
+            <summary>
+            Sets segment IsInProgress to false and releases the segment.
+            </summary>
+            <param name="segment">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Segment"/>.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.ProcessEndSubsegment(System.Nullable{System.DateTime})">
+            <summary>
+            Sends root segment of the current subsegment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.HandleEntityNotAvailableException(Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException,System.String)">
+            <summary>
+            If entity is not available in the <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceContext"/>, exception is thrown.
+            </summary>
+            <param name="e">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException"/>.</param>
+            <param name="message">String message.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceMethod``1(System.String,System.Func{``0})">
+            <summary>
+            Trace a given function with return value. A subsegment will be created for this method.
+            Any exception thrown by the method will be captured.
+            </summary>
+            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.</typeparam>
+            <param name="name">The name of the trace subsegment for the method.</param>
+            <param name="method">The method to be traced.</param>
+            <returns>The return value of the given method.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceMethod(System.String,System.Action)">
+            <summary>
+            Trace a given method returns void.  A subsegment will be created for this method.
+            Any exception thrown by the method will be captured.
+            </summary>
+            <param name="name">The name of the trace subsegment for the method.</param>
+            <param name="method">The method to be traced.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceMethodAsync``1(System.String,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Trace a given asynchronous function with return value. A subsegment will be created for this method.
+            Any exception thrown by the method will be captured.
+            </summary>
+            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates</typeparam>
+            <param name="name">The name of the trace subsegment for the method</param>
+            <param name="method">The method to be traced</param>
+            <returns>The return value of the given method</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceMethodAsync(System.String,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Trace a given asynchronous method that returns no value.  A subsegment will be created for this method.
+            Any exception thrown by the method will be captured.
+            </summary>
+            <param name="name">The name of the trace subsegment for the method</param>
+            <param name="method">The method to be traced</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.GetEntity">
+            <summary>
+            Gets entity (segment/subsegment) from the <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceContext"/>.
+            </summary>
+            <returns>The entity (segment/subsegment)</returns>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to get.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.SetEntity(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Set the specified entity (segment/subsegment) into <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceContext"/>.
+            </summary>
+            <param name="entity">The entity to be set</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to set</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.IsEntityPresent">
+            <summary>
+            Checks whether entity is present in <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceContext"/>.
+            </summary>
+            <returns>True if entity is present TraceContext else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.ClearEntity">
+            <summary>
+            Clear entity from <see cref="P:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.TraceContext"/>.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.AWSXRayRecorderImpl.SetExceptionSerializationStrategy(Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy)">
+            <summary>
+            Configures recorder with <see cref="T:Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy"/>.  While setting number consider max trace size
+            limit : https://aws.amazon.com/xray/pricing/
+            </summary>
+            <param name="stackFrameSize">stack frame size.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException">
+            <summary>
+            The exception that is thrown when the entity is already emitted.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException"/> class
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException"/> class
+            with a specified error message.
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException"/> class 
+            with a specified error message and a reference to the inner exception that is 
+            the cause of this exception.
+            </summary>
+            <param name="message">Error message</param>
+            <param name="inner">Inner exception</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">
+            <summary>
+            The exception that is thrown when segment is not available.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException"/> class
+            with a specified error message.
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException"/> class 
+            with a specified error message and a reference to the inner exception that is 
+            the cause of this exception.
+            </summary>
+            <param name="message">Error message</param>
+            <param name="inner">Inner exception</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException">
+            <summary>
+            The exception that is thrown when an invalid annotation is seen.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException"/> class
+            with a specified error message.
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException"/> class 
+            with a specified error message and a reference to the inner exception that is 
+            the cause of this exception.
+            </summary>
+            <param name="message">Error message</param>
+            <param name="inner">Inner exception</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidSamplingConfigurationException">
+            <summary>
+            The exception that is thrown when an invalid sampling configuration is seen.
+            </summary>
+            <see cref="T:System.Exception"/>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.InvalidSamplingConfigurationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidSamplingConfigurationException"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.InvalidSamplingConfigurationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidSamplingConfigurationException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.InvalidSamplingConfigurationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidSamplingConfigurationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner exception.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">
+            <summary>
+            The exception that is thrown when an unsupported operation is performed.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException"/> class
+            with a specified error message.
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException"/> class 
+            with a specified error message and a reference to the inner exception that is 
+            the cause of this exception.
+            </summary>
+            <param name="message">Error message</param>
+            <param name="inner">Inner exception</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.IAWSXRayRecorder">
+            <summary>
+            Interface to record tracing information for AWS X-Ray
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.Origin">
+            <summary>
+            Gets or sets origin service
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.SamplingStrategy">
+            <summary>
+            Gets or sets the sampling strategy
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.StreamingStrategy">
+            <summary>
+            Get or sets the streaming strategy
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.ContextMissingStrategy">
+            <summary>
+            Gets or sets the context missing strategy.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.RuntimeContext">
+            <summary>
+            Gets the runtime context which is generated by plugins.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.ExceptionSerializationStrategy">
+            <summary>
+            Defines exception serialization stategy to process recorded exceptions. <see cref="T:Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy"/>
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.TraceContext">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext"/>, used to store segment/subsegment.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.Emitter">
+            <summary>
+            Emitter used to send Traces.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.BeginSegment(System.String,System.String,System.String,Amazon.XRay.Recorder.Core.Sampling.SamplingResponse,System.Nullable{System.DateTime})">
+            <summary>
+            Begin a tracing segment. A new tracing segment will be created and started.
+            </summary>
+            <param name="name">The name of the segment</param>
+            <param name="traceId">Trace id of the segment</param>
+            <param name="parentId">Unique id of the upstream remote segment or subsegment where the downstream call originated from.</param>
+            <param name="samplingResponse">Instance  of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse"/>, contains sampling decision for the segment from upstream service. If not passed, sampling decision is made based on <see cref="P:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.SamplingStrategy"/> set with the recorder instance.</param>
+            <param name="timestamp">If not null, sets the start time for the segment else current time is set.</param>
+            <exception cref="T:System.ArgumentNullException">The argument has a null value.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.EndSegment(System.Nullable{System.DateTime})">
+            <summary>
+            End tracing of a given segment.
+            </summary>
+            <param name="timestamp">If not null, set as endtime for the current segment.</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Entity is not available in trace context.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.BeginSubsegment(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Start a subsegment with a given segment
+            </summary>
+            <param name="name">Name of the operation</param>
+            <param name="timestamp">Sets the start time for the subsegment</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.EndSubsegment(System.Nullable{System.DateTime})">
+            <summary>
+            End a subsegment
+            </summary>
+            <param name="timestamp">Sets the end time for the subsegment</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.SetNamespace(System.String)">
+            <summary>
+            Set namespace to current segment
+            </summary>
+            <param name="value">The value of the namespace</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.AddAnnotation(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value as annotation to current segment
+            </summary>
+            <param name="key">The key of the annotation to add</param>
+            <param name="value">The value of the annotation to add</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.MarkFault">
+            <summary>
+            Mark the current segment as fault.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.MarkError">
+            <summary>
+            Mark the current segment as error.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.AddException(System.Exception)">
+            <summary>
+            Add the exception to current segment
+            </summary>
+            <param name="ex">The exception to be added.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.TraceMethod``1(System.String,System.Func{``0})">
+            <summary>
+            Trace a given method with return value. 
+            </summary>
+            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates</typeparam>
+            <param name="name">The name of the trace subsegment for the method</param>
+            <param name="method">The method to be traced</param>
+            <returns>The return value of the given method</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.TraceMethod(System.String,System.Action)">
+            <summary>
+            Trace a given method returns void.
+            </summary>
+            <param name="name">The name of the trace subsegment for the method</param>
+            <param name="method">The method to be traced</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.TraceMethodAsync``1(System.String,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Trace a given asynchronous function with return value. A subsegment will be created for this method.
+            Any exception thrown by the method will be captured.
+            </summary>
+            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates</typeparam>
+            <param name="name">The name of the trace subsegment for the method</param>
+            <param name="method">The method to be traced</param>
+            <returns>The return value of the given method</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.TraceMethodAsync(System.String,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Trace a given asynchronous method that returns no value.  A subsegment will be created for this method.
+            Any exception thrown by the method will be captured.
+            </summary>
+            <param name="name">The name of the trace subsegment for the method</param>
+            <param name="method">The method to be traced</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.AddHttpInformation(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value as http information to current segment
+            </summary>
+            <param name="key">The key of the http information to add</param>
+            <param name="value">The value of the http information to add</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.MarkThrottle">
+            <summary>
+            Mark the current segment as being throttled.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.AddPrecursorId(System.String)">
+            <summary>
+            Add a precursor id.
+            </summary>
+            <param name="precursorId">The precursor id to be added.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.AddSqlInformation(System.String,System.String)">
+            <summary>
+            Add the specified key and value as SQL information to current segment
+            </summary>
+            <param name="key">The key of the SQL information</param>
+            <param name="value">The value of the SQL information</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.AddMetadata(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value to metadata under default namespace.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.AddMetadata(System.String,System.String,System.Object)">
+            <summary>
+            Adds the specified key and value to metadata with given namespace.
+            </summary>
+            <param name="nameSpace">The namespace.</param>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.IAWSXRayRecorder.SetDaemonAddress(System.String)">
+            <summary>
+            Sets the daemon address.
+            The daemon address should be in format "IPAddress:Port", i.e. "127.0.0.1:2000".
+            If environment variable is set to specific daemon address, the call to this method
+            will be ignored.
+            </summary>
+            <param name="daemonAddress">The daemon address.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Context.AsyncLocalContextContainer">
+            <summary>
+            Context to save trace segment which will be preserved across thread.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.AsyncLocalContextContainer.GetEntity">
+            <summary>
+            Get entity (segment/subsegment) from the context.
+            </summary>
+            <returns>The segment get from context.</returns>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to get.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.AsyncLocalContextContainer.SetEntity(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Set the specified entity (segment/subsegment) into context.
+            </summary>
+            <param name="entity">The segment to be set.</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to set.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.AsyncLocalContextContainer.ClearEntity">
+            <summary>
+            Clear entity from trace context for cleanup.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.AsyncLocalContextContainer.IsEntityPresent">
+            <summary>
+            Checks whether enity is present in <see cref="T:System.Threading.AsyncLocal`1"/>.
+            </summary>
+            <returns>True if entity is present in <see cref="T:System.Threading.AsyncLocal`1"/> else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.DefaultTraceContext.GetTraceContext">
+            <summary>
+            Gets default instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext"/>.
+            </summary>
+            <returns>default instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext"/></returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext">
+            <summary>
+            Interface to save trace segment which will be preserved across thread.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext.GetEntity">
+            <summary>
+            Get entity (segment/subsegment) from the trace context.
+            </summary>
+            <returns>The segment get from context</returns>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to get.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext.SetEntity(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Set the specified entity (segment/subsegment) into trace context.
+            </summary>
+            <param name="entity">The segment to be set</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to set</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext.ClearEntity">
+            <summary>
+            Clear entity from trace context for cleanup.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext.IsEntityPresent">
+            <summary>
+            Checks whether enity is present in trace context.
+            </summary>
+            <returns>True if entity is present incontext container else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.ITraceContext.HandleEntityMissing(Amazon.XRay.Recorder.Core.IAWSXRayRecorder,System.Exception,System.String)">
+            <summary>
+            If the entity is missing from the context, the behavior is defined using <see cref="T:Amazon.XRay.Recorder.Core.Strategies.ContextMissingStrategy"/>
+            </summary>
+            <param name="recorder"><see cref="T:Amazon.XRay.Recorder.Core.IAWSXRayRecorder"/> instance</param>
+            <param name="e">Instance of <see cref="T:System.Exception"/></param>
+            <param name="message">String message</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Context.LambdaContextContainer">
+            <summary>
+            This context is used in AWS Lambda environment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.LambdaContextContainer.GetEntity">
+            <summary>
+            Get entity (segment/subsegment) from the context.
+            </summary>
+            <returns>The segment get from context.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.LambdaContextContainer.SetEntity(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Set the specified entity (segment/subsegment) into context.
+            </summary>
+            <param name="entity">The segment to be set.</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to set.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.LambdaContextContainer.ClearEntity">
+            <summary>
+            Clear entity from trace context for cleanup.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.LambdaContextContainer.IsEntityPresent">
+            <summary>
+            Checks whether enity is present in <see cref="T:System.Threading.AsyncLocal`1"/>.
+            </summary>
+            <returns>True if entity is present in <see cref="T:System.Threading.AsyncLocal`1"/> else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.TraceContextImpl.GetEntity">
+            <summary>
+            Get entity (segment/subsegment) from the trace context.
+            </summary>
+            <returns>The segment get from context</returns>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to get.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.TraceContextImpl.SetEntity(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Set the specified entity (segment/subsegment) into trace context.
+            </summary>
+            <param name="entity">The segment to be set</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Thrown when the entity is not available to set</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.TraceContextImpl.ClearEntity">
+            <summary>
+            Clear entity from trace context for cleanup.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.TraceContextImpl.IsEntityPresent">
+            <summary>
+            Checks whether enity is present in trace context.
+            </summary>
+            <returns>True if entity is present incontext container else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Context.TraceContextImpl.HandleEntityMissing(Amazon.XRay.Recorder.Core.IAWSXRayRecorder,System.Exception,System.String)">
+            <summary>
+            If the entity is missing from the context, the behavior is defined using <see cref="T:Amazon.XRay.Recorder.Core.Strategies.ContextMissingStrategy"/>
+            </summary>
+            <param name="recorder"><see cref="T:Amazon.XRay.Recorder.Core.IAWSXRayRecorder"/> instance</param>
+            <param name="e">Instance of <see cref="T:System.Exception"/></param>
+            <param name="message">String message</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter">
+            <summary>
+            Interface of segment emitter
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter.Send(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Send the segment to service
+            </summary>
+            <param name="segment">Segment to send</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter.SetDaemonAddress(System.String)">
+            <summary>
+            Sets the daemon address.
+            The daemon address should be in format "IPAddress:Port", i.e. "127.0.0.1:2000"
+            </summary>
+            <param name="daemonAddress">The daemon address.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentMarshaller">
+            <summary>
+            Interface to marshall segment
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentMarshaller.Marshall(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Marshalls the segment into a byte[]
+            </summary>
+            <param name="segment">The segment to marshall</param>
+            <returns>The result byte array</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Emitters.JsonSegmentMarshaller">
+            <summary>
+            Convert a segment into JSON string
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.JsonSegmentMarshaller.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.JsonSegmentMarshaller"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.JsonSegmentMarshaller.Marshall(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Marshall the segment into JSON string
+            </summary>
+            <param name="segment">The segment to parse</param>
+            <returns>The JSON string parsed from given segment</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter">
+            <summary>
+            Send the segment to daemon
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter"/> class.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter.EndPoint">
+            <summary>
+            Gets the end point to daemon.
+            <para>
+            Two successive calls may not return the same IP as the backing
+            endpoint may be a HostEndpoint that could update.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter.Send(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Send segment to local daemon
+            </summary>
+            <param name="segment">The segment to be sent</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter.SetDaemonAddress(System.String)">
+            <summary>
+            Sets the daemon address.
+            The daemon address should be in format "IPAddress:Port", i.e. "127.0.0.1:2000"
+            </summary>
+            <param name="daemonAddress">The daemon address.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Emitters.UdpSegmentEmitter.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations">
+            <summary>
+             key-value pairs that can be queried through GetTraceSummaries. 
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations"/> class.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.Item(System.String)">
+            <summary>
+            Gets the annotation value associated with the specified key.
+            </summary>
+            <param name="key">The key of the annotation value to get</param>
+            <returns>The value associated with the specified key</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.Add(System.String,System.String)">
+            <summary>
+            Add the specified key and string value as annotation
+            </summary>
+            <param name="key">The key of the annotation to add</param>
+            <param name="value">The string value of the annotation to add</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.Add(System.String,System.Int32)">
+            <summary>
+            Add the specified key and 32bit integer value as annotation
+            </summary>
+            <param name="key">The key of the annotation to add</param>
+            <param name="value">The 32bit integer value of the annotation to add</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.Add(System.String,System.Double)">
+            <summary>
+            Add the specified key and double value as annotation
+            </summary>
+            <param name="key">The key of the annotation to add</param>
+            <param name="value">The double value of the annotation to add</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.Add(System.String,System.Int64)">
+            <summary>
+            Add the specified key and long value as annotation
+            </summary>
+            <param name="key">The key of the annotation to add</param>
+            <param name="value">The long value of the annotation to add</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.Add(System.String,System.Boolean)">
+            <summary>
+            Add the specified key and boolean value as annotation
+            </summary>
+            <param name="key">The key of the annotation to add</param>
+            <param name="value">The boolean value of the annotation to add</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Annotations.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through annotations
+            </summary>
+            <returns>An enumerator structure for annotations.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.Cause">
+            <summary>
+            Present the cause of fault and error in Segment and subsegment
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Cause.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Cause"/> class.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Entities.Cause._exceptions">
+            <summary>
+            List of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/>
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Cause.WorkingDirectory">
+            <summary>
+            Gets the working directory
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Cause.Paths">
+            <summary>
+            Gets the paths
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Cause.ExceptionDescriptors">
+            <summary>
+            Gets a read-only copy of the list of exception to the cause
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Cause.IsExceptionAdded">
+            <summary>
+            Gets a value indicating whether any exception is added.
+            </summary>
+            <value>
+            <c>true</c> if exception has been added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Cause.AddException(System.Collections.Generic.List{Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor})">
+            <summary>
+            Add list of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/> to cause instance.
+            </summary>
+            <param name="exceptionDescriptors">List of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/>.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity">
+            <summary>
+            Represents the common part for both Segment and Subsegment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/> class.
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.TraceId">
+            <summary>
+            Gets or sets the unique id for the trace.
+            </summary>
+            <exception cref="T:System.ArgumentException">Trace id is invalid. - value</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Id">
+            <summary>
+            Gets or sets the unique id of segment.
+            </summary>
+            <value>
+            The unique for Entity.
+            </value>
+            <exception cref="T:System.ArgumentException">The id is invalid. - value</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.StartTime">
+            <summary>
+            Gets or sets the start time of this segment with Unix time in seconds.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.EndTime">
+            <summary>
+            Gets or sets the end time of this segment with Unix time in seconds.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Name">
+            <summary>
+            Gets or sets the name of the service component.
+            </summary>
+            <value>
+            The name.
+            </value>
+            <exception cref="T:System.ArgumentNullException">Thrown when value is null.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Subsegments">
+            <summary>
+            Gets a readonly copy of the subsegment list.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsSubsegmentsAdded">
+            <summary>
+            Gets a value indicating whether any subsegments have been added.
+            </summary>
+            <value>
+            <c>true</c> if there are subsegments added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.ParentId">
+            <summary>
+            Gets or sets the unique id of upstream segment
+            </summary>
+            <value>
+            The unique id for parent Entity.
+            </value>
+            <exception cref="T:System.ArgumentException">The parent id is invalid. - value</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Annotations">
+            <summary>
+            Gets the annotations of the segment
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsAnnotationsAdded">
+            <summary>
+            Gets a value indicating whether any annotations have been added.
+            </summary>
+            <value>
+            <c>true</c> if annotations have been added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.HasFault">
+            <summary>
+            Gets or sets a value indicating whether the segment has faulted or failed
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.HasError">
+            <summary>
+            Gets or sets a value indicating whether the segment has errored
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsThrottled">
+            <summary>
+            Gets or sets a value indicating whether the remote segment is throttled
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Cause">
+            <summary>
+            Gets the cause of fault or error
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsInProgress">
+            <summary>
+            Gets or sets a value indicating whether the segment is in progress
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.HasStreamed">
+            <summary>
+            Gets or sets a value indicating whether the entity has been streamed 
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Reference">
+            <summary>
+            Gets reference of this instance of segment
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Http">
+            <summary>
+            Gets the http attribute
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsHttpAdded">
+            <summary>
+            Gets a value indicating whether any HTTP information has been added.
+            </summary>
+            <value>
+            <c>true</c> if HTTP information has been added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Sql">
+            <summary>
+            Gets the SQL information
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsSqlAdded">
+            <summary>
+            Gets a value indicating whether any SQL information has been added.
+            </summary>
+            <value>
+            <c>true</c> if SQL information has been added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Metadata">
+            <summary>
+            Gets the metadata.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsMetadataAdded">
+            <summary>
+            Gets a value indicating whether any metadata has been added.
+            </summary>
+            <value>
+            <c>true</c> if metadata has been added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Sampled">
+            <summary>
+            Gets or sets the sample decision
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.RootSegment">
+            <summary>
+            Gets or sets the root segment
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Aws">
+            <summary>
+            Gets aws information
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsAwsAdded">
+            <summary>
+            Gets a value indicating whether aws information has been added.
+            </summary>
+            <value>
+            <c>true</c> if aws information has added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsIdValid(System.String)">
+            <summary>
+            Validate the segment id
+            </summary>
+            <param name="id">The segment id to be validate</param>
+            <returns>A value indicates if the id is valid</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.GenerateId">
+            <summary>
+            Generates the id for entity.
+            </summary>
+            <returns>An id for entity.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.SetStartTimeToNow">
+            <summary>
+            Set start time of the entity to current time
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.SetEndTimeToNow">
+            <summary>
+            Set end time of the entity to current time
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.SetStartTime(System.Decimal)">
+            <summary>
+            Sets start time of the entity to the provided timestamp.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.SetEndTime(System.Decimal)">
+            <summary>
+            Sets end time of the entity to the provided timestamp.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.SetStartTime(System.DateTime)">
+            <summary>
+            Sets start time of the entity to the provided timestamp.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.SetEndTime(System.DateTime)">
+            <summary>
+            Sets end time of the entity to the provided timestamp.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.AddAnnotation(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value as annotation to current segment.
+            The type of value is restricted. Only <see cref="T:System.String" />, <see cref="T:System.Int32" />, <see cref="T:System.Int64" />,
+            <see cref="T:System.Double" /> and <see cref="T:System.Boolean" /> are supported.
+            </summary>
+            <param name="key">The key of the annotation to add</param>
+            <param name="value">The value of the annotation to add</param>
+            <exception cref="T:System.ArgumentException">Key cannot be null or empty - key</exception>
+            <exception cref="T:System.ArgumentNullException">value</exception>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.InvalidAnnotationException">The annotation to be added is invalid.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.AddSubsegment(Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment)">
+            <summary>
+            Add a subsegment
+            </summary>
+            <param name="subsegment">The subsegment to add</param>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.EntityNotAvailableException">Cannot add subsegment to a completed segment.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.AddException(System.Exception)">
+            <summary>
+            Adds the exception to cause and set this segment to has fault.
+            </summary>
+            <param name="e">The exception to be added.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.AddMetadata(System.String,System.Object)">
+            <summary>
+            Adds the specific key and value to metadata under default namespace.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.AddMetadata(System.String,System.String,System.Object)">
+            <summary>
+            Adds the specific key and value to metadata under given namespace.
+            </summary>
+            <param name="nameSpace">The name space.</param>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IsEmittable">
+            <summary>
+            Check if this segment or the root segment that this segment belongs to is ok to emit
+            </summary>
+            <returns>If the segment is ready to emit</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.Release">
+            <summary>
+            Release reference to this instance of segment
+            </summary>
+            <returns>Reference count after release</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.DecrementReferenceCounter">
+            <summary>
+            Release reference to this instance of segment
+            </summary>
+            <returns>Reference count after release</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Entity.IncrementReferenceCounter">
+            <summary>
+            Add reference to this instance of segment
+            </summary>
+            <returns>Reference count after add</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor">
+            <summary>
+            AWS X-Ray Descriptor of Exception
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.ExceptionDescriptorIdLength">
+            <summary>
+            The exception descriptor identifier length
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/> class.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Id">
+            <summary>
+            Gets or sets the id of the descriptor.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Message">
+            <summary>
+            Gets or sets the message.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Type">
+            <summary>
+            Gets or sets the type.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Remove">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/> is remove.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Stack">
+            <summary>
+            Gets or sets the stack.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Truncated">
+            <summary>
+            Gets or sets the truncated.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Cause">
+            <summary>
+            Gets or sets the cause.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Exception">
+            <summary>
+            Gets or sets the exception.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor.Remote">
+            <summary>
+            The exception's "remote" attribute should be set to true if the exception on a "remote" subsegment is caused by or originated from a downstream service.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment">
+            <summary>
+            A Facade segment tracks a period of time associated with a computation or action, along with annotations and key / value data.
+            A set of trace segments all of which share the same tracing ID form a trace. This segment is created in AWS Lambda and only its subsegments are emitted.
+            NOTE: This class should not be used. Its used internally by the SDK.
+            </summary>
+            <seealso cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity" />
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Segment"/> class.
+            </summary>
+            <param name="name">Name of the node or service component.</param>
+            <param name="traceId">Unique id for the trace.</param>
+            <param name="parentId">Unique id of the upstream segment.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.Origin">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.Service">
+            <summary>
+            Unsupported for Facade segment. Returns always false.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.IsServiceAdded">
+            <summary>
+            Unsupported for Facade segment. Returns always false.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.SetStartTime(System.Decimal)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.SetEndTime(System.Decimal)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.SetStartTime(System.DateTime)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.SetEndTime(System.DateTime)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.AddMetadata(System.String,System.Object)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.AddException(System.Exception)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.AddAnnotation(System.String,System.Object)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.SetStartTimeToNow">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.SetEndTimeToNow">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.Http">
+            <summary>
+            Unsupported as Facade segment cannot be mutated. Returns always null.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.HasFault">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.HasError">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.IsThrottled">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.Sql">
+            <summary>
+            Unsupported as Facade segment cannot be mutated. Returns always null.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.AddMetadata(System.String,System.String,System.Object)">
+            <summary>
+            Unsupported as Facade segment cannot be mutated.
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.UnsupportedOperationException">FacadeSegments cannot be mutated.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.FacadeSegment.IsHttpAdded">
+            <summary>
+            Unsupported as Facade segment cannot be mutated. Returns always false.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.Segment">
+            <summary>
+            A trace segment tracks a period of time associated with a computation or action, along with annotations and key / value data.
+            A set of trace segments all of which share the same tracing ID form a trace.
+            </summary>
+            <seealso cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity" />
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Segment"/> class.
+            </summary>
+            <param name="name">Name of the node or service component.</param>
+            <param name="traceId">Unique id for the trace.</param>
+            <param name="parentId">Unique id of the upstream segment.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.User">
+            <summary>
+            Gets or Sets the User for the segment
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.Origin">
+            <summary>
+            Gets or sets the origin of the segment.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.Size">
+            <summary>
+            Gets the size of subsegments.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.Service">
+            <summary>
+            Gets the service.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.IsServiceAdded">
+            <summary>
+            Gets a value indicating whether any value has been added to service.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.IncrementSize">
+            <summary>
+            Increment the size count.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.DecrementSize">
+            <summary>
+            Decrement the size count.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.Release">
+            <summary>
+            Release reference to this instance of segment.
+            </summary>
+            <returns>Reference count after release.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.IsEmittable">
+            <summary>
+            Check if this segment or the root segment that this segment belongs to is ok to emit.
+            </summary>
+            <returns>If the segment is ready to emit.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.HasAlreadyStreamed">
+            <summary>
+            Checks if the segment has been streamed already
+            </summary>
+            <exception cref="T:Amazon.XRay.Recorder.Core.Exceptions.AlreadyEmittedException">The segment has been already streamed and no further operation can be performed on it.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.GetUser">
+            <summary>
+            Gets the value of the User for this segment
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Segment.SetUser(System.String)">
+            <summary>
+            Sets the User for this segment
+            </summary>
+            <param name="user">the name of the user</param>
+            <exception cref="T:System.ArgumentNullException">The value of user cannot be null.</exception>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment">
+            <summary>
+            A trace subsegment tracks unit of computation within a trace segment (e.g. a method or function) or a downstream call.
+            </summary>
+            <seealso cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity" />
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment"/> class.
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.Namespace">
+            <summary>
+            Gets or sets the namespace of the subsegment
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.Parent">
+            <summary>
+            Gets or sets parent segment
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.Type">
+            <summary>
+            Gets or sets the type
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.PrecursorIds">
+            <summary>
+            Gets the precursor ids
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.IsPrecursorIdAdded">
+            <summary>
+            Gets a value indicating whether precursor is has been added.
+            </summary>
+            <value>
+            <c>true</c> if precursor id has been added; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.AddPrecursorId(System.String)">
+            <summary>
+            Add the given precursor id to a set
+            </summary>
+            <param name="precursorId">The precursor id to add to the set</param>
+            <returns>true if the id is added; false if the id is already present.</returns>
+            <exception cref="T:System.ArgumentException">The given precursor id is not a valid segment id.</exception>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.IsEmittable">
+            <summary>
+            Check if this segment or the root segment that this segment belongs to is ok to emit
+            </summary>
+            <returns>If the segment is ready to emit</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment.Release">
+            <summary>
+            Release reference to this instance of segment
+            </summary>
+            <returns>Reference count after release</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader">
+            <summary>
+            Represent the embedded trace header in HTTP request/response header
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.HeaderKey">
+            <summary>
+            Field name for trace header in HTTP header
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.RootTraceId">
+            <summary>
+            Gets or sets the trace id
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.ParentId">
+            <summary>
+            Gets or sets the parent segment id
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.Sampled">
+            <summary>
+            Gets or sets the sample decision
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.TryParse(System.String,Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader@)">
+            <summary>
+            Convert the string representation of a trace header to an instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/>.
+            </summary>
+            <param name="rawHeader">A string from HTTP request containing a trace header</param>
+            <param name="header">When the method returns, contains the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/> object converted from <paramref name="rawHeader"/>,
+            if the conversion succeeded, or null if the conversion failed. The conversion fails if the <paramref name="rawHeader"/> is null or empty,
+            is not of the correct format. This parameter is passed uninitialized; any value originally supplied will be overwritten.</param>
+            <returns>true if <paramref name="rawHeader"/> converted successfully; otherwise, false. Root trace id
+            required while parent id and sample decision is optional.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.TryParseAll(System.String,Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader@)">
+            <summary>
+            Convert the string representation of a trace header to an instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/>.
+            </summary>
+            <param name="rawHeader">A string from HTTP request containing a trace header</param>
+            <param name="traceHeader">When the method returns, contains the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/> object converted from <paramref name="rawHeader"/>,
+            if the conversion succeeded, or null if the conversion failed. The conversion fails if the <paramref name="rawHeader"/> is null or empty,
+            is not of the correct format. This parameter is passed uninitialized; any value originally supplied will be overwritten. RootId, ParentId 
+            and Sampling decision are all required in valid form</param>
+            <returns>true if <paramref name="rawHeader"/> converted successfully; otherwise, false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.FromString(System.String)">
+            <summary>
+            Converts the string representation of a trace header to an instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/>.
+            </summary>
+            <param name="rawHeader">A string from HTTP request containing a trace header.</param>
+            <param name="header">When the method returns, contains the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/> object converted from <paramref name="rawHeader"/>,
+            It only extracts non-null and valid values.</param>
+            <returns>true if <paramref name="rawHeader"/> converted successfully; otherwise, false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.TryParse(Amazon.XRay.Recorder.Core.Internal.Entities.Entity,Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader@)">
+            <summary>
+            Convert a Segment to an instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/>.
+            </summary>
+            <param name="entity">A instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/> that will be used to convert to <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/>.</param>
+            <param name="header">When the method returns, contains the <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader"/> object converted from <paramref name="entity"/>,
+            if the conversion succeeded, or null if the conversion failed. The conversion fails if the <paramref name="entity"/> is null, or
+            is not of the correct format. This parameter is passed uninitialized; any value originally supplied will be overwritten.</param>
+            <returns>true if <paramref name="entity"/> converted successfully; otherwise, false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.TraceHeader.ToString">
+            <summary>
+            Generate a string out of this instance of the class
+            </summary>
+            <returns>The string generated from current object</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Entities.TraceId">
+            <summary>
+            Provides utilities to manipulate trace id.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.TraceId.NewId">
+            <summary>
+            Randomly generate a new trace id
+            </summary>
+            <returns>A new random trace id</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Entities.TraceId.IsIdValid(System.String)">
+            <summary>
+            Check whether the trace id is valid
+            </summary>
+            <param name="traceId">The trace id</param>
+            <returns>True if the trace id is valid</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions">
+            <summary>
+            This is a class for storing configuration of IConfiguration instance.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Creates instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions"/>
+            </summary>
+            <param name="pluginSetting">Plugin setting.</param>
+            <param name="samplingRuleManifest">Sampling rule file path</param>
+            <param name="awsServiceHandlerManifest">AWS Service manifest file path.</param>
+            <param name="isXRayTracingDisabled">Tracing disabled value, either true or false.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.#ctor(System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions"/>
+            </summary>
+            <param name="pluginSetting">Plugin setting.</param>
+            <param name="samplingRuleManifest">Sampling rule file path</param>
+            <param name="awsServiceHandlerManifest">AWS Service manifest file path.</param>
+            <param name="isXRayTracingDisabled">Tracing disabled value, either true or false.</param>
+            <param name="useRuntimeErrors">Should errors be thrown at runtime if segment not started, either true or false.</param>
+            <param name="collectSqlQueries">
+            Include the TraceableSqlCommand.CommandText in the sanitized_query section of 
+            the SQL subsegment. Parameterized values will appear in their tokenized form and will not be expanded.
+            You should not enable this flag if you are including sensitive information as clear text.
+            This flag can also be overridden for each TraceableSqlCommand instance individually.
+            See the official documentation on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlcommand.parameters?view=netframework-4.7.2">SqlCommand.Parameters</a>
+            </param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.PluginSetting">
+            <summary>
+            Plugin setting.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.SamplingRuleManifest">
+            <summary>
+            Sampling rule file path.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.AwsServiceHandlerManifest">
+            <summary>
+            AWS Service manifest file path.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.IsXRayTracingDisabled">
+            <summary>
+            Tracing disabled value, either true or false.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.UseRuntimeErrors">
+            <summary>
+            For missing Segments/Subsegments, if set to true, runtime exception is thrown, if set to false, runtime exceptions are avoided and logged.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions.CollectSqlQueries">
+            <summary>
+            Include the TraceableSqlCommand.CommandText in the sanitized_query section of 
+            the SQL subsegment. Parameterized values will appear in their tokenized form and will not be expanded.
+            You should not enable this flag if you are not including sensitive information as clear text.
+            When set to true, the sanitized sql query will be recorded for all the instances of TraceableSqlCommand
+            in the application, unless it is overridden on the individual TraceableSqlCommand instances.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.AWSXRayRecorderFactory.CreateAWSXRayRecorder(Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter)">
+            <summary>
+            Used for unit tests to create a mock implementation. Not intended for production applications.
+            </summary>
+            <param name="emitter"></param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayConfiguration">
+            <summary>
+            Utility class to read <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> object.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.XRayConfiguration.GetXRayOptions(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Reads configuration from <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> object for X-Ray.
+            </summary>
+            <param name="config">Instance of <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/>.</param>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.XRayOptions"/>.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig">
+            <summary>
+            DaemonConfig stores X-Ray daemon configuration about the ip address and port for UDP and TCP port. It gets the address
+            string from "AWS_TRACING_DAEMON_ADDRESS" and then from recorder's configuration for "daemon_address".
+            A notation of '127.0.0.1:2000' or 'tcp:127.0.0.1:2000 udp:127.0.0.2:2001' or 'udp:127.0.0.1:2000 tcp:127.0.0.2:2001'
+            are both acceptable. The first one means UDP and TCP are running at the same address.
+            By default it assumes a X-Ray daemon running at 127.0.0.1:2000 listening to both UDP and TCP traffic.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig.EnvironmentVariableDaemonAddress">
+            <summary>
+            The environment variable for daemon address.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig.DefaultAddress">
+            <summary>
+            Default address for daemon.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig.DefaultEndpoint">
+            <summary>
+            Default UDP and TCP endpoint.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig._udpEndpoint">
+            <summary>
+            Gets or sets UDP endpoint.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig._tcpEndpoint">
+            <summary>
+            Gets or sets TCP endpoint.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig.UDPEndpoint">
+            <summary>
+            Gets IP for UDP endpoint.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig.TCPEndpoint">
+            <summary>
+            Gets IP for TCP endpoint.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig.GetEndPoint(System.String)">
+            <summary>
+            Parses daemonAddress and sets enpoint. If <see cref="F:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig.EnvironmentVariableDaemonAddress"/> is set, this call is ignored.
+            </summary>
+            <param name="daemonAddress"> Dameon address to be parsed and set to <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig"/> instance.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.EndPoint">
+            <summary>
+            Represents either a IPEndPoint or HostEndPoint.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.EndPoint.Of(Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint)">
+            <summary>
+            Create an EndPoint representing a HostEndPoint.
+            </summary>
+            <param name="hostEndPoint">the host endpoint to represent.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.EndPoint.Of(System.Net.IPEndPoint)">
+            <summary>
+            Create an EndPoint representing an IPEndPoint.
+            </summary>
+            <param name="ipEndPoint">the ip endpoint to represent.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.EndPoint.GetIPEndPoint">
+            <summary>
+            Gets the ip of the endpoint that is represented.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint">
+             <summary>
+             Represents a endpoint on some network.
+             The represented endpoint is identified by a hostname.
+            
+             Internally resolves and caches an ip for the hostname.
+             The ip is cached to keep the normal path speedy and non-blocking.
+             </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Create a HostEndPoint.
+            </summary>
+            <param name="host"></param>
+            <param name="port"></param>
+            <param name="cacheTtl"></param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.Host">
+            <summary>
+            Get the hostname that identifies the endpoint.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.Port">
+            <summary>
+            Get the port of the endpoint.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.IPCacheIsValid">
+            <summary>
+            Check to see if the cache is valid.
+            A lock with at least read access MUST be held when calling this method!
+            </summary>
+            <returns>true if the cache is valid, false otherwise.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.LockedIPCacheIsValid">
+            <summary>
+            Checks to see if the cache is valid.
+            This method is essentially a wrapper around <see cref="M:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.IPCacheIsValid"/> that acquires the required lock.
+            </summary>
+            <returns>true if the cache is valid, false otherwise.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.GetIPEndPoint(System.Boolean@)">
+            <summary>
+            Returns a cached ip resolved from the hostname.
+            If the cached address is invalid this method will try to update it.
+            The IP address returned is never guaranteed to be valid.
+            An IP address may be invalid to due to several factors, including but not limited to:
+             * DNS record is incorrect,
+             * DNS record might have changed since last update.
+            The returned IPEndPoint may also be null if no cache update has been successful.
+            </summary>
+            <param name="updatePerformed">set to true if an update was performed, false otherwise</param>
+            <returns>the cached IPEndPoint, may be null</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint.UpdateCache">
+            <summary>
+            Updates the cache if invalid.
+            Utilises an upgradable read lock, meaning only one thread at a time can enter this method.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.IPEndPointExtension">
+            <summary>
+            Provides extension function to <see cref="T:System.Net.IPEndPoint"/>.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.IPEndPointExtension.IsIPAddress(System.String)">
+            <summary>
+            Validates that <paramref name="input"/> is an IP.
+            </summary>
+            <param name="input">Sting to be validated.</param>
+            <returns>true if <paramref name="input"/> is an IP, false otherwise.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.IPEndPointExtension.TryParse(System.String,System.Net.IPEndPoint@)">
+            <summary>
+            Tries to parse a string to <see cref="T:System.Net.IPEndPoint"/>.
+            </summary>
+            <param name="input">The input string. Must be able to be validated by <see cref="M:Amazon.XRay.Recorder.Core.Internal.Utils.IPEndPointExtension.IsIPAddress(System.String)"/>.</param>
+            <param name="endPoint">The parsed IPEndPoint</param>
+            <returns>true if <paramref name="input"/> converted successfully; otherwise, false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.IPEndPointExtension.TryParse(System.String,Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint@)">
+            <summary>
+            Tries to parse a string to <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.HostEndPoint"/>
+            </summary>
+            <param name="input">The input string.</param>
+            <param name="hostEndpoint">The parsed HostEndPoint</param>
+            <returns>true if <paramref name="input"/> converted successfully; otherwise, false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.IPEndPointExtension.TryParse(System.String,Amazon.XRay.Recorder.Core.Internal.Utils.EndPoint@)">
+            <summary>
+            Tries to parse a string to <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.EndPoint"/>
+            </summary>
+            <param name="input">The input string.</param>
+            <param name="hostEndpoint">The parsed EndPoint</param>
+            <returns>true if <paramref name="input"/> converted successfully; otherwise, false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.IPEndPointExtension.TryParse(System.String,Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig@)">
+            <summary>
+            Tries to parse a string to <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig"/>.
+            </summary>
+            <param name="daemonAddress">The input string.</param>
+            <param name="daemonEndPoint">The parsed <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig"/> instance.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.StringExtension">
+            <summary>
+            Perform string matching using standard wildcards (globbing pattern).
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.StringExtension.FromCamelCaseToSnakeCase(System.String)">
+            <summary>
+            Convert a string from the camel case to snake case.
+            </summary>
+            <param name="camelCaseStr">The camel case string.</param>
+            <returns>The converted snake case string.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.StringExtension.WildcardMatch(System.String,System.String,System.Boolean)">
+            <summary>
+            Match the string with a pattern using standard wildcards (globbing pattern).
+            </summary>
+            <param name="text">The text.</param>
+            <param name="pattern">The pattern.</param>
+            <param name="isCaseInsensitive">if set to <c>true</c> [is case insensitive].</param>
+            <returns><c>true</c> if the text matches the pattern; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.StringExtension.SimpleWildcardMatch(System.String,System.String)">
+            <summary>
+            Simples the wildcard match.
+            </summary>
+            <param name="text">The text.</param>
+            <param name="pattern">The pattern.</param>
+            <returns>
+              <c>true</c> if the text matches the pattern; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.StringExtension.IsWildcardGlob(System.String)">
+            <summary>
+            Determines whether the passed pattern is "*"
+            </summary>
+            <param name="pattern">The pattern.</param>
+            <returns>
+              <c>true</c> if the passed pattern is "*"; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.StringExtension.IsMatch(System.String,System.String)">
+            <summary>
+            Used to match incoming request and sampling rule parameters.
+            </summary>
+            <param name="parameterToMatch">Parameter of incoming request.</param>
+            <param name="ruleParameter">Instance member of sampling rule to match.</param>
+            <returns>True, if the two parameter matches else false.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.ThreadSafeRandom">
+            <summary>
+            An thread safe wrapper for System.Random
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.ThreadSafeRandom.GenerateHexNumber(System.Int32)">
+            <summary>
+            Generate a random hex number
+            </summary>
+            <param name="digits">Digits of the hex number</param>
+            <returns>The generated hex number</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.ThreadSafeRandom.NextDouble">
+            <summary>
+            Thread safe version of System.Random.NextDouble().
+            Returns a random floating-point number that is greater than or equal to 0.0, and less than 1.0.
+            </summary>
+            <returns>A double-precision floating point number that is greater than or equal to 0.0, and less than 1.0.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.ThreadSafeRandom.NextBytes(System.Byte[])">
+            <summary>
+            Fills the elements of a specified array of bytes with random numbers
+            </summary>
+            <param name="buffer">An array of bytes to contain random numbers</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.ThreadSafeRandom.Next(System.Int32)">
+            <summary>
+            Returns a non-negative random integer that is less than the specified maximum
+            </summary>
+            <param name="maxValue">Max value of the random integer</param>
+            <returns>A 32-bit signed integer that is greater than or equal to 0, and less than maxValue</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Internal.Utils.UnixTimeExtension">
+            <summary>
+            Common utility functions
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Internal.Utils.UnixTimeExtension.ToUnixTimeSeconds(System.DateTime)">
+            <summary>
+            Convert a given time to Unix time which is the number of seconds
+            since 1st January 1970, 00:00:00 UTC.
+            </summary>
+            <param name="date">.Net representation of time</param>
+            <returns>The number of seconds elapsed since 1970-01-01 00:00:00 UTC.
+            The value is expressed in whole and fractional seconds with resolution of microsecond.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Plugins.EC2Plugin">
+            <summary>
+            This is a plugin for EC2.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.EC2Plugin.Origin">
+            <summary>
+            Gets the name of the origin associated with this plugin.
+            </summary>
+            <returns>The name of the origin associated with this plugin.</returns>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.EC2Plugin.ServiceName">
+            <summary>
+            Gets the name of the service associated with this plugin.
+            </summary>
+            <returns>The name of the service that this plugin is associated with.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Plugins.EC2Plugin.TryGetRuntimeContext(System.Collections.Generic.IDictionary{System.String,System.Object}@)">
+            <summary>
+            Gets the context of the runtime that this plugin is associated with.
+            </summary>
+            <param name="context">When the method returns, contains the runtime context of the plugin, or null if the runtime context is not available.</param>
+            <returns>true if the runtime context is available; Otherwise, false.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Plugins.ECSPlugin">
+            <summary>
+            This is a plugin for ECS.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.ECSPlugin.Origin">
+            <summary>
+            Gets the name of the origin associated with this plugin.
+            </summary>
+            <returns>The name of the origin associated with this plugin.</returns>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.ECSPlugin.ServiceName">
+            <summary>
+            Gets the name of the service associated with this plugin.
+            </summary>
+            <returns>The name of the service that this plugin is associated with.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Plugins.ECSPlugin.TryGetRuntimeContext(System.Collections.Generic.IDictionary{System.String,System.Object}@)">
+            <summary>
+            Gets the context of the runtime that this plugin is associated with.
+            </summary>
+            <param name="context">When the method returns, contains the runtime context of the plugin, or null if the runtime context is not available.</param>
+            <returns>true if the runtime context is available; Otherwise, false.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Plugins.ElasticBeanstalkPlugin">
+            <summary>
+            This is a plugin for Elastic Beanstalk.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.ElasticBeanstalkPlugin.Origin">
+            <summary>
+            Gets the name of the origin associated with this plugin.
+            </summary>
+            <returns>The name of the origin associated with this plugin.</returns>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.ElasticBeanstalkPlugin.ServiceName">
+            <summary>
+            Gets the name of the service associated with this plugin.
+            </summary>
+            <returns>The name of the service that this plugin is associated with.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Plugins.ElasticBeanstalkPlugin.TryGetRuntimeContext(System.Collections.Generic.IDictionary{System.String,System.Object}@)">
+            <summary>
+            Gets the context of the runtime that this plugin is associated with.
+            </summary>
+            <param name="context">When the method returns, contains the runtime context of the plugin, or null if the runtime context is not available.</param>
+            <returns>true if the runtime context is available; Otherwise, false.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Plugins.IPlugin">
+            <summary>
+            Interface for plugin which collect information of runtime
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.IPlugin.Origin">
+            <summary>
+            Gets the name of the origin associated with this plugin. By default, <see cref="T:Amazon.XRay.Recorder.Core.AWSXRayRecorder"/> will infect segment with
+            the origin name of last loaded plugin.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Plugins.IPlugin.ServiceName">
+            <summary>
+            Gets the name of the service associated with this plugin.
+            </summary>
+            <returns>The name of the service that this plugin is associated with.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Plugins.IPlugin.TryGetRuntimeContext(System.Collections.Generic.IDictionary{System.String,System.Object}@)">
+            <summary>
+            Gets the context of the runtime that this plugin is associated with.
+            </summary>
+            <param name="context">When the method returns, contains the runtime context of the plugin, or null if the runtime context is not available.</param>
+            <returns>true if the runtime context is available; Otherwise, false.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy">
+            <summary>
+            Making sampling decisions based on sampling rules defined
+            by X-Ray control plane APIs.It will fall back to <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy"/> if
+            sampling rules are not available.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy.DaemonCfg">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig"/>.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy.XRayClient">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.AmazonXRayClient"/>.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy.#ctor">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy"/>.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy.#ctor(System.String)">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy"/>.
+            </summary>
+            <param name="samplingRuleManifest">Path to local sampling maifest file.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy.Start">
+            <summary>
+            Start rule poller and target poller.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy.ShouldTrace(Amazon.XRay.Recorder.Core.Sampling.SamplingInput)">
+            <summary>
+            Return the matched sampling rule name if the sampler finds one
+            and decide to sample. If no sampling rule matched, it falls back
+            to <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy"/> "ShouldTrace" implementation.
+            All optional arguments are extracted from incoming requests by
+            X-Ray middleware to perform path based sampling.
+            </summary>
+            <param name="input">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput"/>.</param>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse"/>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.DefaultSamplingStrategy.LoadDaemonConfig(Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig)">
+            <summary>
+            Configures X-Ray client with given <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig"/> instance.
+            </summary>
+            <param name="daemonConfig">An instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Utils.DaemonConfig"/>.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.GetSamplingRulesResponse">
+            <summary>
+            Wrapper to <see cref="M:Amazon.XRay.AmazonXRayClient.GetSamplingRulesAsync(Amazon.XRay.Model.GetSamplingRulesRequest,System.Threading.CancellationToken)"/> API call response.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.GetSamplingRulesResponse.Rules">
+            <summary>
+            List of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule"/>.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.GetSamplingRulesResponse.#ctor(System.Collections.Generic.List{Amazon.XRay.Recorder.Core.Sampling.SamplingRule})">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.GetSamplingRulesResponse"/>.
+            </summary>
+            <param name="rules"> List of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule"/>.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.GetSamplingTargetsResponse">
+            <summary>
+            Wrapper for <see cref="M:Amazon.XRay.AmazonXRayClient.GetSamplingTargetsAsync(Amazon.XRay.Model.GetSamplingTargetsRequest,System.Threading.CancellationToken)"/> API call response.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.GetSamplingTargetsResponse.#ctor(System.Collections.Generic.IList{Amazon.XRay.Recorder.Core.Sampling.Target})">
+            <summary>
+            Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.GetSamplingTargetsResponse"/>.
+            </summary>
+            <param name="newTargets">List of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Target"/>.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.GetSamplingTargetsResponse.RuleFreshness">
+            <summary>
+            Sets Last rule modification timestamp returned by the GetSamplingTargets() API call.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.GetSamplingTargetsResponse.Targets">
+            <summary>
+            List of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Target"/>.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.IConnector">
+            <summary>
+            Interface for API calls to X-Ray service.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.ISamplingStrategy">
+            <summary>
+            Interface of sampling strategy which is used to determine if tracing will be
+            enabled for a given request.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.ISamplingStrategy.ShouldTrace(Amazon.XRay.Recorder.Core.Sampling.SamplingInput)">
+            <summary>
+            Apply the first matched sampling rule for the given input to make the sample decision. The evaluation order will be determined by the implementation.
+            </summary>
+            <param name="input">An instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput"/>.</param>
+            <returns>The <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse"/> which contains sampling decision and rule name made for the request.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy">
+            <summary>
+            This strategy loads the sample Rules from local JSON file, and make the sample decision locally
+            according to the Rules.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy"/> class.
+            </summary>
+            <param name="path">Path to the file which sampling configuration.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy.DefaultRule">
+            <summary>
+            Gets or sets the default sampling rule.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy.Rules">
+            <summary>
+            Gets the list of sampling Rules.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy.Sample(System.String,System.String,System.String)">
+            <summary>
+            Apply the default sampling rule to make the sample decision
+            </summary>
+            <param name="host">Name of the service.</param>
+            <param name="path">The path of request.</param>
+            <param name="method">The HTTP method.</param>
+            <returns>
+            The sample decision made for this call
+            </returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.LocalizedSamplingStrategy.ShouldTrace(Amazon.XRay.Recorder.Core.Sampling.SamplingInput)">
+            <summary>
+            Perform sampling decison based on <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput"/>.
+            </summary>
+            <param name="input"> Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput"/>.</param>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse"/>.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.Local.RateLimiter">
+            <summary>
+            The RateLimiter will distribute permit to the first <see cref="P:Amazon.XRay.Recorder.Core.Sampling.Local.RateLimiter.LimitPerSecond"/> requests arrives in every epoch second, and block any request that comes later in that second.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.RateLimiter.#ctor(System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.RateLimiter"/> class.
+            </summary>
+            <param name="limitPerSecond">The number of request that will be permitted every epoch second.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.RateLimiter.LimitPerSecond">
+            <summary>
+            Gets or sets the limit per second.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.RateLimiter.Request">
+            <summary>
+            Request a single permit from this <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.RateLimiter"/>.
+            </summary>
+            <returns>A value that indicates whether a permit is successfully acquired.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingConfiguration">
+            <summary>
+            Manifest of the sampling Rules in config file
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingConfiguration.Version">
+            <summary>
+            Gets or sets the version of sampling configuration.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingConfiguration.Default">
+            <summary>
+            Gets or sets the default sampling rule.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingConfiguration.Rules">
+            <summary>
+            Gets or sets the sampling Rules
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule">
+            <summary>
+            It represents the Rules used for sampling.
+            </summary>    
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.#ctor(System.String,System.String,System.String,System.Int32,System.Double,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule"/> class.
+            </summary>
+            <param name="host">Name of the host. The value can include a multi-character match wildcard(*) or a single-character match wildcard (?) anywhere in the string.</param>
+            <param name="urlPath">The URL path. The value can include a multi-character match wildcard(*) or a single-character match wildcard (?) anywhere in the string.</param>
+            <param name="httpMethod">Http method. The value can be a multi-character match wildcard(*) to match any method.</param>
+            <param name="fixedTarget">It defines a trace collection target for a rule with no sampling in the unit of traces per second. Before the threshold is met, all request will be traced. After the threshold is met, sampling rate is triggered.</param>
+            <param name="rate">The rate at which request will be sampled. E.g. with 5% sampling rate, average 5 request out of 100 will be traced.</param>
+            <param name="description">Description of the sampling rule.</param>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.Host">
+            <summary>
+            Gets or sets the host of the rule
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.ServiceName">
+            <summary>
+            Gets or sets the service name from V1 sampling rule json file.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.HttpMethod">
+            <summary>
+            Gets or sets the http method of the rule
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.UrlPath">
+            <summary>
+            Gets or sets the url path of the rule
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.FixedTarget">
+            <summary>
+            Gets or sets the fixed target rate of the rule in the unit of traces/second
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.RateLimiter">
+            <summary>
+            Gets the rate limiter which had the limit set to fixed target rate
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.Rate">
+            <summary>
+            Gets or sets the sampling rate
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.IsMatch(System.String,System.String,System.String)">
+            <summary>
+            Given the service name, http method and url path of a http request, check whether the rule matches the request 
+            </summary>
+            <param name="hostToMatch">host name of the request</param>
+            <param name="urlPathToMatch">url path of the request</param>
+            <param name="httpMethodToMatch">http method of the request</param>
+            <returns>It returns true if the rule matches the request, otherwise it returns false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Local.SamplingRule.ToString">
+            <summary>
+            Generate a string out of this instance of the class
+            </summary>
+            <returns>The string generated from current object</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.Reservior">
+            <summary>
+            Thread safe reservior which holds fixed sampling quota, borrowed count and TTL.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Reservior.BorrowOrTake(Amazon.XRay.Recorder.Core.Sampling.TimeStamp,System.Boolean)">
+            <summary>
+            If quota is valid, <see cref="T:Amazon.XRay.Recorder.Core.Sampling.ReserviorDecision"/> is either take or no else 1 request/sec is borrowed.
+            </summary>
+            <param name="current"> Current timestamp.</param>
+            <param name="canBorrow">If true, and quota not valid, single request is borrowed in the current sec for the given <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule"/>.</param>
+            <returns>The reservior decision.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.Reservior.LoadQuota(Amazon.XRay.Recorder.Core.Sampling.Target,Amazon.XRay.Recorder.Core.Sampling.TimeStamp)">
+            <summary>
+            Load quota, ttl and interval into current reservior.
+            </summary>
+            <param name="t">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Target"/>.</param>
+            <param name="now">Current timestamp.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.ReserviorDecision">
+            <summary>
+            An Enum of decisions, the reservoir could make based on
+            assigned quota with TTL and the current timestamp/usage.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.RuleCache">
+            <summary>
+            Cache sampling rules and quota retrieved by <see cref="T:Amazon.XRay.Recorder.Core.Sampling.RulePoller"/>
+            and <see cref="T:Amazon.XRay.Recorder.Core.Sampling.TargetPoller"/>. It will not return anything if the cache expires.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.RuleCache.LastUpdated">
+            <summary>
+            Stores timestamp for the last refreshed cache.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.RuleCache.TTL">
+            <summary>
+            Cache expiry TTL.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.RuleCache.GetMatchedRule(Amazon.XRay.Recorder.Core.Sampling.SamplingInput,Amazon.XRay.Recorder.Core.Sampling.TimeStamp)">
+            <summary>
+            Returns matched rule for the given <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput"/>.
+            </summary>
+            <param name="input">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput"/>.</param>
+            <param name="time">Current time.</param>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule"/>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.RuleCache.GetRules">
+            <summary>
+            Returns list of rules present in the cache.
+            </summary>
+            <returns>List of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule"/>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.RuleCache.LoadTargets(System.Collections.Generic.IList{Amazon.XRay.Recorder.Core.Sampling.Target})">
+            <summary>
+            Updates Targets in the cache
+            </summary>
+            <param name="targets"> Targets returned by GetSamplingTargets.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.RuleCache.LoadRules(System.Collections.Generic.List{Amazon.XRay.Recorder.Core.Sampling.SamplingRule})">
+            <summary>
+            Adds new rules to cache, clearing old rules not present in the newRules. 
+            </summary>
+            <param name="newRules"> Rules returned by GetSampling API.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.RulePoller">
+            <summary>
+            Gets sampling rules from X-Ray service. This is a asynchronous operation.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.RulePoller.RefreshCache">
+            <summary>
+            Gets sampling rules from the X-Ray service ans populates <see cref="T:Amazon.XRay.Recorder.Core.Sampling.RuleCache"/>.
+            </summary>
+            <returns>Task instance.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.RulePoller.WakeUp">
+            <summary>
+            Force the rule poller to pull the sampling rules from the service
+            regardless of the polling interval.
+            This method is intended to be used by <see cref="T:Amazon.XRay.Recorder.Core.Sampling.TargetPoller"/> only.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.RulePoller.GenerateRandomJitter">
+            <summary>
+            A random jitter of up to 5 seconds is injected after each run
+            to ensure the calls eventually get evenly distributed over
+            the 5 minute window.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.SampleDecision">
+            <summary>
+            Decisions for sampling
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.SampleDecision.Unknown">
+            <summary>
+            Decision unknown
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.SampleDecision.Sampled">
+            <summary>
+            Tracing is enabled
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.SampleDecision.NotSampled">
+            <summary>
+            Tracing is disabled
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.SampleDecision.Requested">
+            <summary>
+            The decision is not made, but need to be made
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput">
+            <summary>
+            Sampling input for "ShoudTrace" method.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.SamplingInput.Host">
+            <summary>
+            Name of the host.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.SamplingInput.Url">
+            <summary>
+            URL path.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.SamplingInput.Method">
+            <summary>
+            HTTP Method.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.SamplingInput.ServiceName">
+            <summary>
+            Service name of the request.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.SamplingInput.ServiceType">
+            <summary>
+            ServiceType of the application.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse">
+            <summary>
+            Sampling result returned by ShoudTrace().
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse.SampleDecision">
+            <summary>
+            Enum of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SampleDecision"/>.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.SamplingResponse.RuleName">
+            <summary>
+            Rule name for the the sample decision.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule">
+            <summary>
+            It represents the Rules used for sampling.
+            </summary> 
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.SamplingRule.IsValid(Amazon.XRay.Model.SamplingRule)">
+            <summary>
+            Validates sampling rule. ResourceARN with "*" value is valid. SDK doesn't support Atrributes parameter with any value.
+            </summary>
+            <param name ="rule">Instance of <see cref="T:Amazon.XRay.Model.SamplingRule"/></param>
+            <returns> True, if the rule is valid else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.SamplingRule.Match(Amazon.XRay.Recorder.Core.Sampling.SamplingInput)">
+            <summary>
+            Determines whether or not this sampling rule applies to the incoming
+            request based on some of the request's parameters.
+            </summary>
+            <param name="input">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingInput"/>.</param>
+            <returns>True if the rule matches.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.SamplingRule.SnapShotStatistics">
+            <summary>
+            Returns current state of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Statistics"/>.
+            </summary>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.Statistics"/>.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.ServiceConnector">
+            <summary>
+            Connector class that translates Sampling poller functions to 
+            actual X-Ray back-end APIs and communicates with X-Ray daemon as the
+            signing proxy.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.ServiceConnector.ClientID">
+            <summary>
+            Client id for the instance. Its 24 digit hex number.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.ServiceConnector.GetSamplingRules">
+            <summary>
+            Use X-Ray client to get the sampling rules
+            from X-Ray service.The call is proxied and signed by X-Ray Daemon.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.ServiceConnector.GetSamplingTargets(System.Collections.Generic.List{Amazon.XRay.Recorder.Core.Sampling.SamplingRule})">
+            <summary>
+            Report the current statistics of sampling rules and
+            get back the new assigned quota/TTL/Interval from the X-Ray service.
+            The call is proxied and signed via X-Ray Daemon.
+            </summary>
+            <param name="rules">List of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule"/>.</param>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.GetSamplingRulesResponse"/>.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.Statistics">
+            <summary>
+            This class records requests matched, borrowed and sampled count for the given rule.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Statistics.RequestCount">
+            <summary>
+            Number of requests matched for the rule.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Statistics.BorrowCount">
+            <summary>
+            Number of requests borrowed for the rule.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Sampling.Statistics.SampledCount">
+            <summary>
+            Number of requests sampled for the rule.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.Target">
+            <summary>
+            Stores records received from GetSamplingTargets API call.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.Target.FixedRate">
+            <summary>
+            Fixed rate for the rule.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.Target.ReserviorQuota">
+            <summary>
+            Reservior quota for the rule.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.Target.TTL">
+            <summary>
+            TTL for the rule.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.Target.RuleName">
+            <summary>
+            Rule name.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Sampling.Target.Interval">
+            <summary>
+            Interval for the rule.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.TargetPoller">
+            <summary>
+            The poller to report the current statistics of all
+            sampling rules and retrieve the new allocated
+            sampling quota and TTL from X-Ray service.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.TargetPoller.GetCandidates">
+            <summary>
+            Don't report a rule statistics if any of the conditions is met:
+            1. The report time hasn't come (some rules might have larger report intervals).
+            2. The rule is never matched.
+            </summary>
+            <returns>List of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.SamplingRule"/>.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Sampling.TimeStamp">
+            <summary>
+            Stores timestamp for the operations in unix seconds.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.TimeStamp.CurrentTime">
+            <summary>
+            Gets current time in unix seconds.
+            </summary>
+            <returns>Instance of <see cref="T:Amazon.XRay.Recorder.Core.Sampling.TimeStamp"/>.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Sampling.TimeStamp.CurrentDateTime">
+            <summary>
+            Get current <see cref="T:System.DateTime"/>.
+            </summary>
+            <returns>current <see cref="T:System.DateTime"/>.</returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.ContextMissingStrategy">
+            <summary>
+            Represent all modes of ContextMissingStrategy.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Strategies.ContextMissingStrategy.RUNTIME_ERROR">
+            <summary>
+            The EntityNotAvailableException will be thrown if occurs at runtime.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Strategies.ContextMissingStrategy.LOG_ERROR">
+            <summary>
+            The EntityNotAvailableException will be logged if occurs.
+            </summary>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy">
+            <summary>
+            Defines default startegy for recording exception. By default <see cref="T:Amazon.Runtime.AmazonServiceException"/> class exeptions are marked as remote. 
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.DefaultStackFrameSize">
+            <summary>
+            Default stack frame size for the recorded <see cref="T:System.Exception"/>.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.MaxStackFrameSize">
+            <summary>
+            The maximum stack frame size for the strategy.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="F:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy._defaultExceptionClasses"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.#ctor(System.Int32)">
+            <summary>
+            Initializes <see cref="T:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy"/> instance with provided Stack frame size. 
+            While setting number consider max trace size limit : https://aws.amazon.com/xray/pricing/
+            </summary>
+            <param name="stackFrameSize">Integer value for stack frame size.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.#ctor(System.Int32,System.Collections.Generic.List{System.Type})">
+            <summary>
+            Initializes <see cref="T:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy"/> instance with provided Stack frame size and 
+            list of types for which exceptions should be marked as remote.
+            While setting number consider max trace size limit : https://aws.amazon.com/xray/pricing/
+            </summary>
+            <param name="stackFrameSize">Stack frame size for the recorded exception.</param>
+            <param name="types">List of <see cref="T:System.Type"/> for which exceptions should be marked as remote.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.#ctor(System.Collections.Generic.List{System.Type})">
+            <summary>
+            Initializes <see cref="T:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy"/> instance with provided
+            list of types for which exceptions should be marked as remote.
+            </summary>
+            <param name="types">List of <see cref="T:System.Type"/> for which exceptions should be marked as remote.</param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.GetValidStackFrameSize(System.Int32)">
+            <summary>
+            Validates and returns valid max stack frame size.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.IsRemoteException(System.Exception)">
+            <summary>
+            Checks whether the exception should be marked as remote.
+            </summary>
+            <param name="e">Instance of <see cref="T:System.Exception"/>.</param>
+            <returns>True if the exception is of type present in <see cref="F:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy._remoteExceptionClasses"/>, else false.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultExceptionSerializationStrategy.DescribeException(System.Exception,System.Collections.Generic.IEnumerable{Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment})">
+            <summary>
+            Visit each node in the cause chain. For each node:
+            Determine if it has already been described in one of the child subsegments' causes. If so, link there.
+            Otherwise, describe it and add it to the Cause and  returns the list of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/>.
+            </summary>
+            <param name="e">The exception to be added</param>
+            <param name="subsegments">The subsegments to search for existing exception descriptor.</param>
+            <returns> List of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/></returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy">
+            <summary>
+            The default streaming strategy. It uses the total count of a segment's children subsegments as a threshold. If the threshold is breached, it uses subtree streaming to stream out.
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy.DefaultMaxSubsegmentSize">
+            <summary>
+            Default max subsegment size to stream for the strategy.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy.MaxSubsegmentSize">
+            <summary>
+            Max subsegment size to stream fot the strategy.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy"/> class.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy.#ctor(System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy"/> class.
+            </summary>
+            <param name="maxSubsegmentSize"></param>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy.ShouldStream(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Checks whether subsegments of the current instance of  <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/> should be streamed.
+            </summary>
+            <param name="entity">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/></param>
+            <returns>True if the subsegments are streamable.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DefaultStreamingStrategy.Stream(Amazon.XRay.Recorder.Core.Internal.Entities.Entity,Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter)">
+            <summary>
+            Streams subsegments of instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/>.
+            </summary>
+            <param name="entity">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/>.</param>
+            <param name="emitter">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter"/>.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.DynamicSegmentNamingStrategy">
+            <summary>
+            Try to match the Host field from HTTP header first, if not match then use the fallback name as segment name.
+            </summary>
+            <see cref="T:Amazon.XRay.Recorder.Core.Strategies.SegmentNamingStrategy" />
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DynamicSegmentNamingStrategy.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Strategies.DynamicSegmentNamingStrategy" /> class.
+            </summary>
+            <param name="fallbackSegmentName">Name of the fallback segment.</param>
+            <param name="hostNamePattern">The host name pattern.</param>
+            <exception cref="T:System.ArgumentException">
+            fallbackSegmentName cannot be null or empty. - fallbackSegmentName
+            or
+            hostNamePattern cannot be null or empty. - hostNamePattern
+            </exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Strategies.DynamicSegmentNamingStrategy.HostNamePattern">
+            <summary>
+            Gets or sets the host name pattern regex.
+            </summary>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Strategies.DynamicSegmentNamingStrategy.FallbackSegmentName">
+            <summary>
+            Gets or sets the name of the fallback segment.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.DynamicSegmentNamingStrategy.GetSegmentName(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Gets the name of the segment.
+            </summary>
+            <param name="httpRequest">The HTTP request.</param>
+            <returns>
+            The segment name.
+            </returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy">
+            <summary>
+            Interface used to implement custom exception serialization strategy and record <see cref="T:System.Exception"/> on <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Cause"/> instance.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.ExceptionSerializationStrategy.DescribeException(System.Exception,System.Collections.Generic.IEnumerable{Amazon.XRay.Recorder.Core.Internal.Entities.Subsegment})">
+            <summary>
+            Decribes exception by iterating subsegments and populates list of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/>.
+            </summary>
+            <param name="e">The exception to be added</param>
+            <param name="subsegments">The subsegments to search for existing exception descriptor.</param>
+            <returns> List of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.ExceptionDescriptor"/></returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.FixedSegmentNamingStrategy">
+            <summary>
+            Use a fixed name as segment name.
+            </summary>
+            <seealso cref="T:Amazon.XRay.Recorder.Core.Strategies.SegmentNamingStrategy" />
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.FixedSegmentNamingStrategy.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Amazon.XRay.Recorder.Core.Strategies.FixedSegmentNamingStrategy"/> class.
+            </summary>
+            <param name="fixedName">Name of the fixed.</param>
+            <exception cref="T:System.ArgumentNullException">fixedName is null.</exception>
+        </member>
+        <member name="P:Amazon.XRay.Recorder.Core.Strategies.FixedSegmentNamingStrategy.FixedName">
+            <summary>
+            Gets or sets the name of the fixed.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.FixedSegmentNamingStrategy.GetSegmentName(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Gets the name of the segment.
+            </summary>
+            <param name="httpRequest">The HTTP request.</param>
+            <returns>
+            The segment name.
+            </returns>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.IStreamingStrategy">
+            <summary>
+            Interface of streaming strategy which is used to determine when and how the subsegments will be streamed.
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.IStreamingStrategy.ShouldStream(Amazon.XRay.Recorder.Core.Internal.Entities.Entity)">
+            <summary>
+            Determines whenther or not the provided segment/subsegment requires any subsegment streaming.
+            </summary>
+            <param name="input">An instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/>.</param>
+            <returns>true if the segment/subsegment should be streamed.</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.IStreamingStrategy.Stream(Amazon.XRay.Recorder.Core.Internal.Entities.Entity,Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter)">
+            <summary>
+            Streams subsegments of instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/>.
+            </summary>
+            <param name="entity">Instance of <see cref="T:Amazon.XRay.Recorder.Core.Internal.Entities.Entity"/>.</param>
+            <param name="emitter">Instance if <see cref="T:Amazon.XRay.Recorder.Core.Internal.Emitters.ISegmentEmitter"/>.</param>
+        </member>
+        <member name="T:Amazon.XRay.Recorder.Core.Strategies.SegmentNamingStrategy">
+            <summary>
+            Strategy to name a segment
+            </summary>
+        </member>
+        <member name="F:Amazon.XRay.Recorder.Core.Strategies.SegmentNamingStrategy.EnvironmentVariableSegmentName">
+            <summary>
+            The environment variable for segment name
+            </summary>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.SegmentNamingStrategy.GetSegmentNameFromEnvironmentVariable">
+            <summary>
+            Gets the segment name from environment variable.
+            </summary>
+            <returns>Segment name from environment variable</returns>
+        </member>
+        <member name="M:Amazon.XRay.Recorder.Core.Strategies.SegmentNamingStrategy.GetSegmentName(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Gets the name of the segment.
+            </summary>
+            <param name="httpRequest">The <see cref="T:Microsoft.AspNetCore.Http.HttpRequest"/> request.</param>
+            <returns>The segment name</returns>
+        </member>
+    </members>
+</doc>
